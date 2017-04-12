@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+       default-lazy-init="false">
+
+    <description>Spring</description>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:config/jdbc.properties</value>
+                <value>classpath*:config/common.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--  激活利用注解进行装配  -->
+    <context:component-scan base-package="com.wx">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!--dataSource-->
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+        <property name="driverClassName" value="${JDBC.Driver.mysql}"></property>
+        <property name="url" value="${JDBC.Url.mysql}"></property>
+        <property name="username" value="${JDBC.Username.mysql}"></property>
+        <property name="password" value="${JDBC.Password.mysql}"></property>
+        <!--jmx是否开启-->
+        <property name="jmxEnabled" value="true"></property>
+        <!--空闲链接检查-->
+        <property name="testWhileIdle" value="true"></property>
+        <!--从池中获得链接时是否先测试-->
+        <property name="testOnBorrow" value="true"></property>
+        <!--mysql,sqlserver可以使用select 1;但是oracle只能使用select 1 from dual-->
+        <property name="validationQuery" value="select 1 "></property>
+        <!--将链接返回池中时是否验证-->
+        <property name="testOnReturn" value="false"></property>
+        <!--验证频率,默认30s-->
+        <property name="validationInterval" value="30000"></property>
+        <!--检查空闲链接,默认5s-->
+        <property name="timeBetweenEvictionRunsMillis" value="10000"></property>
+        <property name="maxActive" value="100"></property>
+        <property name="initialSize" value="10"></property>
+        <!--请求链接最长等待时间,默认15s-->
+        <property name="maxWait" value="15000"></property>
+        <!--是否开启链接回收,默认为false,如果开启,超过removeAbandonedTimeout的所有链接都会回收-->
+        <property name="removeAbandoned" value="false"></property>
+        <!--多少时间之前的链接可以放弃,重置计时器后返回池中,用户拦截器查询-->
+        <property name="removeAbandonedTimeout" value="60"></property>
+        <!--是否开启抛弃链接的堆栈追踪-->
+        <property name="logAbandoned" value="false"></property>
+        <!--多少时间之后便表示该链接是空闲链接,默认60s-->
+        <property name="minEvictableIdleTimeMillis" value="30"></property>
+        <property name="minIdle" value="10"></property>
+    </bean>
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>

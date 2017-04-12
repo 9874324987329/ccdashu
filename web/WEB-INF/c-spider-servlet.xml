@@ -10,11 +10,11 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-2.5.xsd">
 
-    <context:component-scan base-package="com.wx.controller"/>
+    <context:component-scan base-package="com.sp.controller"/>
     <mvc:annotation-driven/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
 
-    <bean id="exceptionHandler" class="com.wx.exception.ExceptionHandler"/>
+    <bean id="exceptionHandler" class="com.sp.exception.ExceptionHandler"/>
 </beans>

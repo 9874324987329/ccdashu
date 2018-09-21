@@ -3,12 +3,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="/WEB-INF/tags.jsp" %>
 <head>
-    <title>index</title>
+    <title>list</title>
 </head>
 <body>
 <form id="_form" action="${ctx}/c-spider/doSpider" method="post">
     URL:<input type="text" name="url" style="width: 300px" value="http://localhost:8080/test_data.jsp"/>
-    <button type="button" onclick="$('#_form').submit();">开始</button>
+    <button type="button" onclick="$('#_form').submit();">抓取列表</button>
 </form>
 <div id="res"></div>
 

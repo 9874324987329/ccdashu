@@ -18,7 +18,7 @@
 package cn.edu.hfut.dmic.webcollector.util;
 
 import java.sql.SQLException;
-import org.apache.commons.dbcp.BasicDataSource;
+//import org.apache.commons.dbcp.BasicDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
@@ -26,46 +26,46 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * @author hu
  */
 public class MysqlHelper {
-
-    BasicDataSource dataSource = null;
-    public JdbcTemplate template;
-
-    public MysqlHelper(String url, String username, String password, int initialSize, int maxActive) {
-        dataSource = new BasicDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        dataSource.setInitialSize(initialSize);
-        dataSource.setMaxActive(maxActive);
-        template = new JdbcTemplate(dataSource);
-    }
-    
-
-    public BasicDataSource getDataSource() {
-        return dataSource;
-    }
-
-    public void setDataSource(BasicDataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-    
-    
-
-    public JdbcTemplate getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(JdbcTemplate template) {
-        this.template = template;
-    }
-    
-    
-
-    public void close() throws SQLException {
-        if (dataSource != null) {
-            dataSource.close();
-        }
-    }
+//
+//    BasicDataSource dataSource = null;
+//    public JdbcTemplate template;
+//
+//    public MysqlHelper(String url, String username, String password, int initialSize, int maxActive) {
+//        dataSource = new BasicDataSource();
+//        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        dataSource.setUrl(url);
+//        dataSource.setUsername(username);
+//        dataSource.setPassword(password);
+//        dataSource.setInitialSize(initialSize);
+//        dataSource.setMaxActive(maxActive);
+//        template = new JdbcTemplate(dataSource);
+//    }
+//
+//
+//    public BasicDataSource getDataSource() {
+//        return dataSource;
+//    }
+//
+//    public void setDataSource(BasicDataSource dataSource) {
+//        this.dataSource = dataSource;
+//    }
+//
+//
+//
+//    public JdbcTemplate getTemplate() {
+//        return template;
+//    }
+//
+//    public void setTemplate(JdbcTemplate template) {
+//        this.template = template;
+//    }
+//
+//
+//
+//    public void close() throws SQLException {
+//        if (dataSource != null) {
+//            dataSource.close();
+//        }
+//    }
 
 }

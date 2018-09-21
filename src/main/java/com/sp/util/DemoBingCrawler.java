@@ -17,22 +17,6 @@
  */
 package com.sp.util;
 
-import com.alibaba.fastjson.JSON;
-
-import org.apache.commons.collections.map.HashedMap;
-import org.json.JSONObject;
-import org.jsoup.nodes.DataNode;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.nodes.Node;
-import org.jsoup.nodes.TextNode;
-import org.jsoup.select.Elements;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
@@ -50,7 +34,7 @@ public class DemoBingCrawler extends RamCrawler {
 //        System.out.println(url);
 
 //        getPageUrls(page);
-        getJsonDate(page);
+        JsoupUtils.getJsonDate(page);
 
 //        System.out.println("visiting:" + url + "\tdepth=" + page.meta("depth"));
         //        Document doc = page.doc();
@@ -86,64 +70,12 @@ public class DemoBingCrawler extends RamCrawler {
     public static void main(String[] args) throws Exception {
         //http://shanghai.anjuke.com/community/p2/
         //http://shanghai.anjuke.com/community/view/*/
-        String url = "http://shanghai.anjuke.com/";
+        String url = "http://localhost:8080/index.jsp";
+//        String url = "http://shanghai.anjuke.com/community/p2/";
         int depth = 1;
         DemoBingCrawler crawler = new DemoBingCrawler();
         crawler.addSeed(new CrawlDatum(url).meta("depth", "" + depth));
         crawler.start();
-    }
-
-    public static List<String> getPageUrls(Page page) {
-        try {
-            String url = page.url();
-            List<String> urlArray = new ArrayList<String>();
-            Document doc = page.doc();
-            Elements links = doc.getElementsByTag("a");
-            for (Element link : links) {
-                String linkHref = link.attr("href");
-                if (linkHref.startsWith(url)) {
-                    System.out.println(linkHref);
-                    urlArray.add(linkHref);
-                }
-            }
-            return urlArray;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void getJsonDate(Page page) {
-        try {
-
-            Document doc = page.doc();
-
-            List<Node> nodes = doc.childNodes();
-
-            int depth = 1;
-            for (Node node : nodes) {
-                iteratorNode(node);
-            }
-
-//            System.out.println(">>>>"+doc);
-//            Elements elements = doc.getAllElements();
-//            System.out.println(">>>>"+elements);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Map<String, Object> iteratorNode(Node node) {
-        Map<String, Object> result = new HashedMap();
-        List<Node> nodes = node.childNodes();
-        System.out.println(">>" + node.nodeName());
-        if (nodes.size() > 0) {
-            for (Node snode : nodes) {
-                Map<String,Object> res = iteratorNode(snode);
-            }
-        }
-        return result;
     }
 
 

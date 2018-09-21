@@ -340,7 +340,9 @@ public class DateUtils {
     }
 
     public static void main(String[] args) throws Throwable {
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        System.out.println(formatTime(1489805601000l,datetimePattern));
+        System.out.println(formatTime(1494557052000l,datetimePattern));
 
      }
     /**
@@ -561,5 +563,7 @@ public class DateUtils {
         }
         return dates;
     }
+
+
 }
 

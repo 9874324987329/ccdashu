@@ -282,29 +282,29 @@ public class ContentExtractor {
         final AtomicInteger contentIndex = new AtomicInteger();
         final String metaTitle = doc.title().trim();
         if (!metaTitle.isEmpty()) {
-            doc.body().traverse(new NodeVisitor() {
-                @Override
-                public void head(Node node, int i) {
-                    if (node instanceof Element) {
-                        Element tag = (Element) node;
-                        if (tag == contentElement) {
-                            contentIndex.set(titleList.size());
-                            return;
-                        }
-                        String tagName = tag.tagName();
-                        if (Pattern.matches("h[1-6]", tagName)) {
-                            String title = tag.text().trim();
-                            double sim = strSim(title, metaTitle);
-                            titleSim.add(sim);
-                            titleList.add(tag);
-                        }
-                    }
-                }
-
-                @Override
-                public void tail(Node node, int i) {
-                }
-            });
+//            doc.body().traverse(new NodeVisitor() {
+//                @Override
+//                public void head(Node node, int i) {
+//                    if (node instanceof Element) {
+//                        Element tag = (Element) node;
+//                        if (tag == contentElement) {
+//                            contentIndex.set(titleList.size());
+//                            return;
+//                        }
+//                        String tagName = tag.tagName();
+//                        if (Pattern.matches("h[1-6]", tagName)) {
+//                            String title = tag.text().trim();
+//                            double sim = strSim(title, metaTitle);
+//                            titleSim.add(sim);
+//                            titleList.add(tag);
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void tail(Node node, int i) {
+//                }
+//            });
             int index = contentIndex.get();
             if (index > 0) {
                 double maxScore = 0;
@@ -343,28 +343,28 @@ public class ContentExtractor {
         final ArrayList<Double> max = new ArrayList<Double>();
         max.add(0.0);
         final StringBuilder sb = new StringBuilder();
-        doc.body().traverse(new NodeVisitor() {
-
-            public void head(Node node, int i) {
-
-                if (node instanceof TextNode) {
-                    TextNode tn = (TextNode) node;
-                    String text = tn.text().trim();
-                    double sim = strSim(text, metaTitle);
-                    if (sim > 0) {
-                        if (sim > max.get(0)) {
-                            max.set(0, sim);
-                            sb.setLength(0);
-                            sb.append(text);
-                        }
-                    }
-
-                }
-            }
-
-            public void tail(Node node, int i) {
-            }
-        });
+//        doc.body().traverse(new NodeVisitor() {
+//
+//            public void head(Node node, int i) {
+//
+//                if (node instanceof TextNode) {
+//                    TextNode tn = (TextNode) node;
+//                    String text = tn.text().trim();
+//                    double sim = strSim(text, metaTitle);
+//                    if (sim > 0) {
+//                        if (sim > max.get(0)) {
+//                            max.set(0, sim);
+//                            sb.setLength(0);
+//                            sb.append(text);
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//            public void tail(Node node, int i) {
+//            }
+//        });
         if (sb.length() > 0) {
             return sb.toString();
         }
